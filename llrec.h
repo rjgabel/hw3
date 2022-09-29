@@ -5,14 +5,12 @@
 /**
  * Node struct for both problems
  */
-struct Node
-{
+struct Node {
     int val;
-    Node *next;
+    Node* next;
 
     Node(int v, Node* n) : val(v), next(n) {}
 };
-
 
 /**
  * Given a linked list pointed to by head, creates two lists
@@ -24,7 +22,7 @@ struct Node
  * upon return and head set to NULL (i.e. we are not making copies)
  * in the smaller and larger lists but simply moving Nodes out of
  * the input list and into the two other lists.
- * 
+ *
  * ==============================================================
  * MUST RUN IN O(n) where n is the number of nodes in the input list
  * ==============================================================
@@ -45,7 +43,7 @@ struct Node
  *   Pivot value
  *
  */
-void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot);
+void llpivot(Node*& head, Node*& smaller, Node*& larger, int pivot);
 
 /**
  * Given a linked list pointed to by head, removes (filters out) nodes
@@ -67,22 +65,25 @@ void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot);
  *   may change [i.e. be filtered])
  *
  */
-template <typename Comp>
-Node* llfilter(Node* head, Comp pred);
+template <typename Comp> Node* llfilter(Node* head, Comp pred);
 
 //*****************************************************************************
 // Since template implementations should be in a header file, we will
 // implement the above function now.
 //*****************************************************************************
 
-template <typename Comp>
-Node* llfilter(Node* head, Comp pred)
-{
-    //*********************************************
-    // Provide your implementation below
-    //*********************************************
-
-
+template <typename Comp> Node* llfilter(Node* head, Comp pred) {
+    if (head == nullptr) {
+        return nullptr;
+    }
+    head->next = llfilter(head->next, pred);
+    if (pred(head->val)) {
+        Node* temp = head->next;
+        delete head;
+        return temp;
+    } else {
+        return head;
+    }
 }
 
 #endif
