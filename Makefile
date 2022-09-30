@@ -6,8 +6,11 @@ all: llrec-test
 
 llrec-test: $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
+	
+stack-test: stack-test.o
+	$(CXX) $(CXXFLAGS) -o $@ stack-test.o
 
 clean:
-	rm -f *.o rh llrec-test *~
+	rm -f *.o rh llrec-test stack-test *~
 
 .PHONY: clean 
